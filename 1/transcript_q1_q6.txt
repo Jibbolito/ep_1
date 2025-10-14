@@ -1,0 +1,392 @@
+Script started on 2025-10-14 13:15:49+02:00 [TERM="xterm-256color" TTY="/dev/pts/27" COLUMNS="138" LINES="70"]
+[?2004h[ep12433741:~/ep_1/1:4] [7m/usr/ftp/pub/anton/lvas/efficient/25/q1a[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/usr/ftp/pub/anton/lvas/efficient/25/q1a
+[?2004l[?2004h[ep12433741:~/ep_1/1:5] [7m/usr/ftp/pub/anton/lvas/efficient/25/q1b[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/usr/ftp/pub/anton/lvas/efficient/25/q1b
+[?2004l[?2004h[ep12433741:~/ep_1/1:6] [7m/usr/ftp/pub/anton/lvas/efficient/25/q1c[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/usr/ftp/pub/anton/lvas/efficient/25/q1c
+[?2004l[?2004h[ep12433741:~/ep_1/1:7] [7m/usr/ftp/pub/anton/lvas/efficient/25/q1d[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/usr/ftp/pub/anton/lvas/efficient/25/q1d
+[?2004l[?2004h[ep12433741:~/ep_1/1:8] [7m/usr/ftp/pub/anton/lvas/efficient/25/q1e[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/usr/ftp/pub/anton/lvas/efficient/25/q1e
+[?2004l[?2004h[ep12433741:~/ep_1/1:9] [7mtime /usr/ftp/pub/anton/lvas/efficient/25/q1a[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctime /usr/ftp/pub/anton/lvas/efficient/25/q1a
+[?2004l
+real	0m0.122s
+user	0m0.047s
+sys	0m0.072s
+[?2004h[ep12433741:~/ep_1/1:10] time /usr/ftp/pub/anton/lvas/efficient/25/q1a[Kb
+[?2004l
+real	0m0.416s
+user	0m0.001s
+sys	0m0.014s
+[?2004h[ep12433741:~/ep_1/1:11] time /usr/ftp/pub/anton/lvas/efficient/25/q1b[Kc
+[?2004l
+real	0m0.165s
+user	0m0.456s
+sys	0m0.027s
+[?2004h[ep12433741:~/ep_1/1:12] time /usr/ftp/pub/anton/lvas/efficient/25/q1c[Kd
+[?2004l
+real	0m0.377s
+user	0m0.003s
+sys	0m0.372s
+[?2004h[ep12433741:~/ep_1/1:13] time /usr/ftp/pub/anton/lvas/efficient/25/q1d[Ke
+[?2004l
+real	0m0.365s
+user	0m0.361s
+sys	0m0.003s
+[?2004h[ep12433741:~/ep_1/1:14] [7m/usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1a[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1a
+[?2004l	Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1a"
+	User time (seconds): 0.04
+	System time (seconds): 0.07
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.11
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 985964
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2484
+	Voluntary context switches: 6
+	Involuntary context switches: 0
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+[?2004h[ep12433741:~/ep_1/1:15] /usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1a[Kb
+[?2004l	Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1b"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: 2%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.41
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9180
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1540
+	Voluntary context switches: 7
+	Involuntary context switches: 0
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+[?2004h[ep12433741:~/ep_1/1:16] /usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1b[Kc
+[?2004l	Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1c"
+	User time (seconds): 0.46
+	System time (seconds): 0.01
+	Percent of CPU this job got: 296%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.16
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9104
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4521
+	Voluntary context switches: 7
+	Involuntary context switches: 6
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+[?2004h[ep12433741:~/ep_1/1:17] /usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1c[Kd
+[?2004l	Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1d"
+	User time (seconds): 0.00
+	System time (seconds): 0.36
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1544
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 175
+	Voluntary context switches: 6
+	Involuntary context switches: 7
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+[?2004h[ep12433741:~/ep_1/1:18] /usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1d[Ke
+[?2004l	Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1e"
+	User time (seconds): 0.36
+	System time (seconds): 0.00
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9212
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1542
+	Voluntary context switches: 6
+	Involuntary context switches: 3
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+[?2004h[ep12433741:~/ep_1/1:19] cd
+[?2004l[?2004h[ep12433741:~:20] ls
+[?2004lep_1/
+[?2004h[ep12433741:~:21] cd ep_1
+[?2004l[?2004h[ep12433741:~/ep_1:22] ls
+[?2004l1/
+[?2004h[ep12433741:~/ep_1:23] cd 1
+[?2004l[?2004h[ep12433741:~/ep_1/1:24] ls
+[?2004lExercises1.txt	transcript_q1_q6.txt
+[?2004h[ep12433741:~/ep_1/1:25] [7mcd ~/ep_1/1[27mcd ~/ep_1/1
+[?2004l[?2004h[ep12433741:~/ep_1/1:26] [7mnano results_q1.txt[27mnano results_q1.txt
+[?2004l[?2004h[?1049h[22;0;0t[1;70r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[68;64H(B[0;7m[ New File ](B[m[H(B[0;7m  GNU nano 8.4                                                  results_q1.txt                                                            [1;137H(B[m[69d(B[0;7m^G(B[m Help[69;18H(B[0;7m^O(B[m Write Out     (B[0;7m^F(B[m Where Is[52G(B[0;7m^K(B[m Cut[69;69H(B[0;7m^T(B[m Execute[86G(B[0;7m^C(B[m Location[103G(B[0;7mM-U(B[m Undo[69;120H(B[0;7mM-A(B[m Set Mark[70d(B[0;7m^X(B[m Exit[70;18H(B[0;7m^R(B[m Read File     (B[0;7m^\(B[m Replace[52G(B[0;7m^U(B[m Paste[70;69H(B[0;7m^J(B[m Justify[86G(B[0;7m^/(B[m Go To Line    (B[0;7mM-E(B[m Redo[70;120H(B[0;7mM-6(B[m Copy[2d[?12l[?25h[?25l[68d[K[1;80H(B[0;7m*[137G(B[m[2d------------------------------------------------------------[3dQ1 Results – Performance Comparison[4d------------------------------------------------------------[6dCommand executed:[7;5H/usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1[a-e][9dSummary of results:[11dProgram | Real time (s) | User time (s) | System time (s) | Max RSS (kB) | CPU (%)[12d-----------------------------------------------------------------------------------[13dq1a     | 0.11[13;26H| 0.04[13;42H| 0.07[13;61H| 985964[76G| 99[14dq1b     | 0.41[14;26H| 0.00[14;42H| 0.00[14;61H| 9180[14;76H| 2[15dq1c     | 0.16[15;26H| 0.46[15;42H| 0.01[15;61H| 9104[15;76H| 296[16dq1d     | 0.37[16;26H| 0.00[16;42H| 0.36[16;61H| 1544[16;76H| 99[17dq1e     | 0.37[17;26H| 0.36[17;42H| 0.00[17;61H| 9212[17;76H| 99[19dInterpretation:[20d- q1a has the shortest real time but uses a large amount of memory.[21d- q1b is the slowest and inefficient (very low CPU utilization).[22d- q1c achieves the best CPU performance (likely parallelized).[23d- q1d and q1e have similar runtime; q1d performs mostly in system mode, q1e in user mode.[24d- Overall, q1c provides the best trade-off between speed and CPU efficiency.[26dTranscript file: transcript_q1_q6.txt[27d------------------------------------------------------------[28d[?12l[?25h[?25l[69;18H[17X[69;35H(B[0;7mM-D(B[m DOS Format         [69;69H(B[0;7mM-A(B[m Append[86G           [69;105H(B[0;7mB(B[m Backup File[K[70;2H(B[0;7mC(B[m Cancel[70;18H[17X[70;35H(B[0;7mM-M(B[m Mac Format           [70;69H(B[0;7mM-P(B[m Prepend[86G[17X[70;103H(B[0;7m^T(B[m Browse[K[68d(B[0;7mWrite to File: results_q1.txt                                                                                                             [68;30H(B[m[?12l[?25h[?25l[68;62H[1K (B[0;7m[ Writing... ](B[m[K[1;80H(B[0;7m [137G(B[m[68;61H(B[0;7m[ Wrote 26 lines ](B[m[69;18H(B[0;7m^O(B[m Write Out     (B[0;7m^F(B[m Where Is      (B[0;7m^K(B[m Cut[69;69H(B[0;7m^T(B[m Execute[86G(B[0;7m^C(B[m Location[69;105H(B[0;7mU(B[m Undo         (B[0;7mM-A(B[m Set Mark[70;2H(B[0;7mX(B[m Exit  [70;18H(B[0;7m^R(B[m Read File     (B[0;7m^\(B[m Replace       (B[0;7m^U(B[m Paste[70;69H(B[0;7m^J(B[m Justify [86G(B[0;7m^/(B[m Go To Line    (B[0;7mM-E(B[m Redo [70;120H(B[0;7mM-6(B[m Copy[?12l[?25h[28d[?25l[68d[J[70d[?12l[?25h[70;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h[ep12433741:~/ep_1/1:27] nano results_q1.txt
+[?2004l[?2004h[?1049h[22;0;0t[1;70r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[68;63H(B[0;7m[ Reading... ](B[m[68;61H(B[0;7m[ Read 26 lines ](B[m[H(B[0;7m  GNU nano 8.4                                                  results_q1.txt                                                            [1;137H(B[m[69d(B[0;7m^G(B[m Help[69;18H(B[0;7m^O(B[m Write Out     (B[0;7m^F(B[m Where Is[52G(B[0;7m^K(B[m Cut[69;69H(B[0;7m^T(B[m Execute[86G(B[0;7m^C(B[m Location[103G(B[0;7mM-U(B[m Undo[69;120H(B[0;7mM-A(B[m Set Mark[70d(B[0;7m^X(B[m Exit[70;18H(B[0;7m^R(B[m Read File     (B[0;7m^\(B[m Replace[52G(B[0;7m^U(B[m Paste[70;69H(B[0;7m^J(B[m Justify[86G(B[0;7m^/(B[m Go To Line    (B[0;7mM-E(B[m Redo[70;120H(B[0;7mM-6(B[m Copy[2d------------------------------------------------------------[3dQ1 Results – Performance Comparison[4d------------------------------------------------------------[6dCommand executed:[7;5H/usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1[a-e][9dSummary of results:[11dProgram | Real time (s) | User time (s) | System time (s) | Max RSS (kB) | CPU (%)[12d-----------------------------------------------------------------------------------[13dq1a     | 0.11[13;26H| 0.04[13;42H| 0.07[13;61H| 985964[76G| 99[14dq1b     | 0.41[14;26H| 0.00[14;42H| 0.00[14;61H| 9180[14;76H| 2[15dq1c     | 0.16[15;26H| 0.46[15;42H| 0.01[15;61H| 9104[15;76H| 296[16dq1d     | 0.37[16;26H| 0.00[16;42H| 0.36[16;61H| 1544[16;76H| 99[17dq1e     | 0.37[17;26H| 0.36[17;42H| 0.00[17;61H| 9212[17;76H| 99[19dInterpretation:[20d- q1a has the shortest real time but uses a large amount of memory.[21d- q1b is the slowest and inefficient (very low CPU utilization).[22d- q1c achieves the best CPU performance (likely parallelized).[23d- q1d and q1e have similar runtime; q1d performs mostly in system mode, q1e in user mode.[24d- Overall, q1c provides the best trade-off between speed and CPU efficiency.[26dTranscript file: transcript_q1_q6.txt[27d------------------------------------------------------------[2d[?12l[?25h[?25l[68d[J[70d[?12l[?25h[70;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h[ep12433741:~/ep_1/1:28] ls
+[?2004lExercises1.txt	results_q1.txt	transcript_q1_q6.txt
+[?2004h[ep12433741:~/ep_1/1:29] [7mcd ~/my_git_project/1[27mcd ~/my_git_project/1[1P/1[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[7mcp /usr/ftp/pub/anton/lvas/effizienz-aufgabe23/magichex.c .[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccp /usr/ftp/pub/anton/lvas/effizienz-aufgabe23/magichex.c .
+[?2004l[?2004h[ep12433741:~/ep_1/1:30] [7mgcc -O -pg -fprofile-arcs -ftest-coverage magichex.c -o magichex[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgcc -O -pg -fprofile-arcs -ftest-coverage magichex.c -o magichex
+[?2004l[?2004h[ep12433741:~/ep_1/1:31] [7mrm -f magichex.gcda[27mrm -f magichex.gcda
+[?2004l[?2004h[ep12433741:~/ep_1/1:32] [7m./magichex 3 0 >/dev/null[27m./magichex 3 0 >/dev/null
+[?2004l[?2004h[ep12433741:~/ep_1/1:33] [7mgprof magichex gmon.out > gprof_output.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgprof magichex gmon.out > gprof_output.txt
+[?2004l[?2004h[ep12433741:~/ep_1/1:34] [7mgcov magichex.c > gcov_output.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[33@gcov magichex.c > gcov_output.txt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pgcov magichex.c > gcov_output.tx[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+[?2004l[?2004h[ep12433741:~/ep_1/1:35] [7mls -l[27mls -l
+[?2004ltotal 83
+-rw-r--r-- 1 ep12433741 ep   672 Oct 14 13:15 Exercises1.txt
+-rw-r--r-- 1 ep12433741 ep   104 Oct 14 13:26 gcov_output.txt
+-rw-r--r-- 1 ep12433741 ep 11304 Oct 14 13:26 gmon.out
+-rw-r--r-- 1 ep12433741 ep  8583 Oct 14 13:26 gprof_output.txt
+-rwxr-xr-x 1 ep12433741 ep 38216 Oct 14 13:26 magichex*
+-rw-r--r-- 1 ep12433741 ep  8440 Oct 14 13:25 magichex.c
+-rw-r--r-- 1 ep12433741 ep 14120 Oct 14 13:26 magichex.c.gcov
+-rw-r--r-- 1 ep12433741 ep  1144 Oct 14 13:26 magichex.gcda
+-rw-r--r-- 1 ep12433741 ep 11726 Oct 14 13:26 magichex.gcno
+-rw-r--r-- 1 ep12433741 ep  1315 Oct 14 13:24 results_q1.txt
+-rw-r--r-- 1 ep12433741 ep 14551 Oct 14 13:28 transcript_q1_q6.txt
+[?2004h[ep12433741:~/ep_1/1:36] [7mless gprof_output.txt[27mless gprof_output.txt
+[?2004l[?1049h[22;0;0t[70;1H[?1h=Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 44.46      0.04     0.04  3170851     0.00     0.00  sum
+ 44.46      0.08     0.04    44240     0.00     0.00  solve
+ 11.12      0.09     0.01                             _init
+  0.00      0.09     0.00 14074791     0.00     0.00  sethi
+  0.00      0.09     0.00 13857798     0.00     0.00  setlo
+  0.00      0.09     0.00  2633686     0.00     0.00  lessthan
+  0.00      0.09     0.00       26     0.00     0.00  printhexagon
+  0.00      0.09     0.00        1     0.00    80.03  labeling
+  0.00      0.09     0.00        1     0.00     0.00  makehexagon
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+           else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+           function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+           the function in the gprof listing. If the index is
+           in parenthesis it shows where it would appear in
+           the gprof listing if it were to be printed.
+[7m^L[27m
+Copyright (C) 2012-2025 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+[7m^L[27m
+                     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 11.11% of 0.09 seconds
+
+index % time    self  children    called     name
+                0.04    0.04   44240/44240       labeling [2]
+[1]     88.9    0.04    0.04   44240         solve [1]
+                0.04    0.00 3170851/3170851     sum [4]
+                0.00    0.00 2633686/2633686     lessthan [8]
+-----------------------------------------------
+                                9697             labeling [2]
+                0.00    0.08       1/1           main [3]
+[2]     88.9    0.00    0.08       1+9697    labeling [2]
+                0.04    0.04   44240/44240       solve [1]
+                0.00    0.00      26/26          printhexagon [9]
+                                9697             labeling [2]
+-----------------------------------------------
+                                                 <spontaneous>
+[3]     88.9    0.00    0.08                 main [3]
+                0.00    0.08       1/1           labeling [2]
+[7mgprof_output.txt[27m[K[H[2J[H[H[2J[HFlat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 44.46      0.04     0.04  3170851     0.00     0.00  sum
+ 44.46      0.08     0.04    44240     0.00     0.00  solve
+ 11.12      0.09     0.01                             _init
+  0.00      0.09     0.00 14074791     0.00     0.00  sethi
+  0.00      0.09     0.00 13857798     0.00     0.00  setlo
+  0.00      0.09     0.00  2633686     0.00     0.00  lessthan
+  0.00      0.09     0.00       26     0.00     0.00  printhexagon
+  0.00      0.09     0.00        1     0.00    80.03  labeling
+  0.00      0.09     0.00        1     0.00     0.00  makehexagon
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+           else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+           function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+           the function in the gprof listing. If the index is
+           in parenthesis it shows where it would appear in
+           the gprof listing if it were to be printed.
+[7m^L[27m
+Copyright (C) 2012-2025 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+[7m^L[27m
+                     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 11.11% of 0.09 seconds
+
+index % time    self  children    called     name
+                0.04    0.04   44240/44240       labeling [2]
+[1]     88.9    0.04    0.04   44240         solve [1]
+                0.04    0.00 3170851/3170851     sum [4]
+                0.00    0.00 2633686/2633686     lessthan [8]
+-----------------------------------------------
+                                9697             labeling [2]
+                0.00    0.08       1/1           main [3]
+[2]     88.9    0.00    0.08       1+9697    labeling [2]
+                0.04    0.04   44240/44240       solve [1]
+                0.00    0.00      26/26          printhexagon [9]
+                                9697             labeling [2]
+-----------------------------------------------
+                                                 <spontaneous>
+[3]     88.9    0.00    0.08                 main [3]
+                0.00    0.08       1/1           labeling [2]
+:[K[K[?1l>[?1049l[23;0;0t[?2004h[ep12433741:~/ep_1/1:37] [7mless gcov_output.txt[27mless gcov_output.txt
+[?2004l[?1049h[22;0;0t[70;1H[?1h=File 'magichex.c'
+Lines executed:94.27% of 157
+Creating 'magichex.c.gcov'
+
+Lines executed:94.27% of 157
+[7mgcov_output.txt (END)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h[ep12433741:~/ep_1/1:38] [7mnano results_q1.txt[27mnano results_q1.txt
+[?2004l[?2004h[?1049h[22;0;0t[1;70r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[68;63H(B[0;7m[ Reading... ](B[m[68;61H(B[0;7m[ Read 26 lines ](B[m[H(B[0;7m  GNU nano 8.4                                                  results_q1.txt                                                            [1;137H(B[m[69d(B[0;7m^G(B[m Help[69;18H(B[0;7m^O(B[m Write Out     (B[0;7m^F(B[m Where Is[52G(B[0;7m^K(B[m Cut[69;69H(B[0;7m^T(B[m Execute[86G(B[0;7m^C(B[m Location[103G(B[0;7mM-U(B[m Undo[69;120H(B[0;7mM-A(B[m Set Mark[70d(B[0;7m^X(B[m Exit[70;18H(B[0;7m^R(B[m Read File     (B[0;7m^\(B[m Replace[52G(B[0;7m^U(B[m Paste[70;69H(B[0;7m^J(B[m Justify[86G(B[0;7m^/(B[m Go To Line    (B[0;7mM-E(B[m Redo[70;120H(B[0;7mM-6(B[m Copy[2d------------------------------------------------------------[3dQ1 Results – Performance Comparison[4d------------------------------------------------------------[6dCommand executed:[7;5H/usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1[a-e][9dSummary of results:[11dProgram | Real time (s) | User time (s) | System time (s) | Max RSS (kB) | CPU (%)[12d-----------------------------------------------------------------------------------[13dq1a     | 0.11[13;26H| 0.04[13;42H| 0.07[13;61H| 985964[76G| 99[14dq1b     | 0.41[14;26H| 0.00[14;42H| 0.00[14;61H| 9180[14;76H| 2[15dq1c     | 0.16[15;26H| 0.46[15;42H| 0.01[15;61H| 9104[15;76H| 296[16dq1d     | 0.37[16;26H| 0.00[16;42H| 0.36[16;61H| 1544[16;76H| 99[17dq1e     | 0.37[17;26H| 0.36[17;42H| 0.00[17;61H| 9212[17;76H| 99[19dInterpretation:[20d- q1a has the shortest real time but uses a large amount of memory.[21d- q1b is the slowest and inefficient (very low CPU utilization).[22d- q1c achieves the best CPU performance (likely parallelized).[23d- q1d and q1e have similar runtime; q1d performs mostly in system mode, q1e in user mode.[24d- Overall, q1c provides the best trade-off between speed and CPU efficiency.[26dTranscript file: transcript_q1_q6.txt[27d------------------------------------------------------------[2d[?12l[?25h[?25l[?12l[?25h[3d[?25l[?12l[?25h[5d[?25l[?12l[?25h[6d[?25l[?12l[?25h[7d[?25l[?12l[?25h[8d[?25l[?12l[?25h[9d[?25l[?12l[?25h[10d[?25l[?12l[?25h[11d[?25l[?12l[?25h[12d[?25l[?12l[?25h[13d[?25l[?12l[?25h[15d[?25l[?12l[?25h[16d[?25l[?12l[?25h[17d[?25l[?12l[?25h[18d[?25l[?12l[?25h[19d[?25l[?12l[?25h[21d[?25l[68d[K[?12l[?25h[22d[?25l[?12l[?25h[23d[?25l[?12l[?25h[25d[?25l[?12l[?25h[26d[?25l[?12l[?25h[27d[?25l[?12l[?25h[28d[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[1;80H(B[0;7m*[137G(B[m[29d[?12l[?25h[?25l[30d[?12l[?25h[?25l[31d[?12l[?25h[?25l[32d[?12l[?25h[?25l------------------------------------------------------------[33dQ7–Q11 Results[34d------------------------------------------------------------[36dQ7: Which function consumes the most time according to the profile?[37d→ The functions `sum()` and `solve()` consume the most time (≈44% each).[39dQ8: Which function is called most often?[40d→ `sethi()` is called ≈14 million times, followed by `setlo()` with ≈13.8 million calls.[42dQ9: Which function calls sethi() most often?[43d→ `lessthan()` calls `sethi()` most often.[45dQ10: Which function is called by lessthan() most often?[46d→ `sethi()` and `setlo()` are called by `lessthan()`, with `sethi()` being called slightly more often.[48dQ11: According to the gcov output, which line in solve() is executed most often?[49d→ More than 94% of lines were executed overall.[50d→ The most frequently executed line in `solve()` is the loop body where `sum = sethi(...)` is called.[51d------------------------------------------------------------[52d[?12l[?25h[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[46d[?25l[?12l[?25h[44d[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[C[?25l[?12l[?25h [?25l[?12l[?25h`[?25l[?12l[?25hs[?25l[?12l[?25he[?25l[?12l[?25ht[?25l[?12l[?25hh[?25l[?12l[?25hi[?25l[?12l[?25h([?25l[?12l[?25h)`[?25l[?12l[?25h [?25l[?12l[?25hi[?25l[?12l[?25hs[?25l[?12l[?25h [?25l[?12l[?25hc[?25l[?12l[?25hal[?25l[?12l[?25hl[?25l[?12l[?25hed[?25l[?12l[?25h [?25l[?12l[?25h[C[?25l[69;18H[17X[69;35H(B[0;7mM-D(B[m DOS Format         [69;69H(B[0;7mM-A(B[m Append[86G           [69;105H(B[0;7mB(B[m Backup File[K[70;2H(B[0;7mC(B[m Cancel[70;18H[17X[70;35H(B[0;7mM-M(B[m Mac Format           [70;69H(B[0;7mM-P(B[m Prepend[86G[17X[70;103H(B[0;7m^T(B[m Browse[K[68d(B[0;7mWrite to File: results_q1.txt                                                                                                             [68;30H(B[m[?12l[?25h[?25l[68;62H[1K (B[0;7m[ Writing... ](B[m[K[1;80H(B[0;7m [137G(B[m[68;61H(B[0;7m[ Wrote 50 lines ](B[m[69;18H(B[0;7m^O(B[m Write Out     (B[0;7m^F(B[m Where Is      (B[0;7m^K(B[m Cut[69;69H(B[0;7m^T(B[m Execute[86G(B[0;7m^C(B[m Location[69;105H(B[0;7mU(B[m Undo         (B[0;7mM-A(B[m Set Mark[70;2H(B[0;7mX(B[m Exit  [70;18H(B[0;7m^R(B[m Read File     (B[0;7m^\(B[m Replace       (B[0;7m^U(B[m Paste[70;69H(B[0;7m^J(B[m Justify [86G(B[0;7m^/(B[m Go To Line    (B[0;7mM-E(B[m Redo [70;120H(B[0;7mM-6(B[m Copy[?12l[?25h[40;24H[?25l[68d[J[70d[?12l[?25h[70;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h[ep12433741:~/ep_1/1:39] nano results_q1.txt
+[?2004l[?2004h[?1049h[22;0;0t[1;70r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[68;63H(B[0;7m[ Reading... ](B[m[68;61H(B[0;7m[ Read 50 lines ](B[m[H(B[0;7m  GNU nano 8.4                                                  results_q1.txt                                                            [1;137H(B[m[69d(B[0;7m^G(B[m Help[69;18H(B[0;7m^O(B[m Write Out     (B[0;7m^F(B[m Where Is[52G(B[0;7m^K(B[m Cut[69;69H(B[0;7m^T(B[m Execute[86G(B[0;7m^C(B[m Location[103G(B[0;7mM-U(B[m Undo[69;120H(B[0;7mM-A(B[m Set Mark[70d(B[0;7m^X(B[m Exit[70;18H(B[0;7m^R(B[m Read File     (B[0;7m^\(B[m Replace[52G(B[0;7m^U(B[m Paste[70;69H(B[0;7m^J(B[m Justify[86G(B[0;7m^/(B[m Go To Line    (B[0;7mM-E(B[m Redo[70;120H(B[0;7mM-6(B[m Copy[2d------------------------------------------------------------[3dQ1 Results – Performance Comparison[4d------------------------------------------------------------[6dCommand executed:[7;5H/usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1[a-e][9dSummary of results:[11dProgram | Real time (s) | User time (s) | System time (s) | Max RSS (kB) | CPU (%)[12d-----------------------------------------------------------------------------------[13dq1a     | 0.11[13;26H| 0.04[13;42H| 0.07[13;61H| 985964[76G| 99[14dq1b     | 0.41[14;26H| 0.00[14;42H| 0.00[14;61H| 9180[14;76H| 2[15dq1c     | 0.16[15;26H| 0.46[15;42H| 0.01[15;61H| 9104[15;76H| 296[16dq1d     | 0.37[16;26H| 0.00[16;42H| 0.36[16;61H| 1544[16;76H| 99[17dq1e     | 0.37[17;26H| 0.36[17;42H| 0.00[17;61H| 9212[17;76H| 99[19dInterpretation:[20d- q1a has the shortest real time but uses a large amount of memory.[21d- q1b is the slowest and inefficient (very low CPU utilization).[22d- q1c achieves the best CPU performance (likely parallelized).[23d- q1d and q1e have similar runtime; q1d performs mostly in system mode, q1e in user mode.[24d- Overall, q1c provides the best trade-off between speed and CPU efficiency.[26dTranscript file: transcript_q1_q6.txt[27d------------------------------------------------------------[32d------------------------------------------------------------[33dQ7–Q11 Results[34d------------------------------------------------------------[36dQ7: Which function consumes the most time according to the profile?[37d→ The functions `sum()` and `solve()` consume the most time (≈44% each).[39dQ8: Which function is called most often?[40d→ `sethi()` is called ≈14 million times, followed by `setlo()` with ≈13.8 million calls.[42dQ9: Which function calls sethi() most often?[43d→ `lessthan()` calls `sethi()` most often.[45dQ10: Which function is called by lessthan() most often?[46d→ `sethi()` and `setlo()` are called by `lessthan()`, with `sethi()` being called slightly more often.[48dQ11: According to the gcov output, which line in solve() is executed most often?[49d→ More than 94% of lines were executed overall.[50d→ The most frequently executed line in `solve()` is the loop body where `sum = sethi(...)` is called.[51d------------------------------------------------------------[2d[?12l[?25h[?25l[68d[J[70d[?12l[?25h[70;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h[ep12433741:~/ep_1/1:40] [7mcat results_q1.txt[27mcat results_q1.txt
+[?2004l------------------------------------------------------------
+Q1 Results – Performance Comparison
+------------------------------------------------------------
+
+Command executed:
+    /usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1[a-e]
+
+Summary of results:
+
+Program | Real time (s) | User time (s) | System time (s) | Max RSS (kB) | CPU (%) 
+-----------------------------------------------------------------------------------
+q1a     | 0.11           | 0.04          | 0.07             | 985964       | 99
+q1b     | 0.41           | 0.00          | 0.00             | 9180         | 2
+q1c     | 0.16           | 0.46          | 0.01             | 9104         | 296
+q1d     | 0.37           | 0.00          | 0.36             | 1544         | 99
+q1e     | 0.37           | 0.36          | 0.00             | 9212         | 99
+
+Interpretation:
+- q1a has the shortest real time but uses a large amount of memory.
+- q1b is the slowest and inefficient (very low CPU utilization).
+- q1c achieves the best CPU performance (likely parallelized).
+- q1d and q1e have similar runtime; q1d performs mostly in system mode, q1e in user mode.
+- Overall, q1c provides the best trade-off between speed and CPU efficiency.
+
+Transcript file: transcript_q1_q6.txt
+------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------
+Q7–Q11 Results
+------------------------------------------------------------
+
+Q7: Which function consumes the most time according to the profile?
+→ The functions `sum()` and `solve()` consume the most time (≈44% each).
+
+Q8: Which function is called most often?
+→ `sethi()` is called ≈14 million times, followed by `setlo()` with ≈13.8 million calls.
+
+Q9: Which function calls sethi() most often?
+→ `lessthan()` calls `sethi()` most often.
+
+Q10: Which function is called by lessthan() most often?
+→ `sethi()` and `setlo()` are called by `lessthan()`, with `sethi()` being called slightly more often.
+
+Q11: According to the gcov output, which line in solve() is executed most often?
+→ More than 94% of lines were executed overall.  
+→ The most frequently executed line in `solve()` is the loop body where `sum = sethi(...)` is called.
+------------------------------------------------------------
+[?2004h[ep12433741:~/ep_1/1:41] [7mgit add 1/[27mgit add 1/
+[?2004lwarning: could not open directory '1/1/': No such file or directory
+fatal: pathspec '1/' did not match any files
+[?2004h[ep12433741:~/ep_1/1:42] cd .
+[?2004l[?2004h[ep12433741:~/ep_1/1:43] [7mgit add 1/[27mgit add 1/
+[?2004lwarning: could not open directory '1/1/': No such file or directory
+fatal: pathspec '1/' did not match any files
+[?2004h[ep12433741:~/ep_1/1:44] [7mcd ~/ep_1[27mcd ~/ep_1
+[?2004l[?2004h[ep12433741:~/ep_1:45] [7mgit add 1/[27mgit add 1/
+[?2004l

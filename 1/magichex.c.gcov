@@ -1,0 +1,351 @@
+        -:    0:Source:magichex.c
+        -:    0:Graph:magichex.gcno
+        -:    0:Data:magichex.gcda
+        -:    0:Runs:1
+        -:    1:#include <stdio.h>
+        -:    2:#include <stdlib.h>
+        -:    3:#include <assert.h>
+        -:    4:#include <string.h>
+        -:    5:
+        -:    6:typedef struct var Var;
+        -:    7:
+        -:    8:/* constraint variable; if lo==hi, this is the variable's value */
+        -:    9:typedef struct var {
+        -:   10:  long id; /* variable id; id<0 if the variable is not part of the hexagon */
+        -:   11:  long lo; /* lower bound */
+        -:   12:  long hi; /* upper bound */
+        -:   13:} Var;
+        -:   14:
+        -:   15:/* representation of a hexagon of order n: (2n-1)^2 square array
+        -:   16:   for a hexagon of order 2:
+        -:   17:     A B
+        -:   18:    C D E
+        -:   19:     F G
+        -:   20:   the representation is:
+        -:   21:    A B .
+        -:   22:    C D E
+        -:   23:    . F G
+        -:   24:   The . slots have lo>hi.
+        -:   25:
+        -:   26:   The variable array is organized as a single-dimension array with accesses
+        -:   27:   vs[y*r+x]
+        -:   28:   This allows to access the diagonal with stride 2*order
+        -:   29:
+        -:   30:   Variable names n, r, H, S according to German Wikipedia Article
+        -:   31:   Instead of "i", the deviation variable is called "d" (d=0 means
+        -:   32:   that the sum=0; to have the lowest value 1, d=2)
+        -:   33:   
+        -:   34:   n is the order (number of elements of a side of the hexagon).
+        -:   35:   r = 2n-1 (length of the middle row/diagonals)
+        -:   36:   H = 3n^2-3n+1 (number of variables)
+        -:   37:   M = dH (sum of each row/diagonal)
+        -:   38:   lowest  value = dr - (H-1)/2
+        -:   39:   highest value = dr + (H-1)/2
+        -:   40:*/
+        -:   41:
+        -:   42:unsigned long solutions = 0; /* counter of solutions */
+        -:   43:unsigned long leafs = 0; /* counter of leaf nodes visited in the search tree */
+        -:   44:
+  1164515:   45:long min(long a, long b)
+        -:   46:{
+  1164515:   47:  return (a<b)?a:b;
+        -:   48:}
+        -:   49:
+  2104527:   50:long max(long a, long b)
+        -:   51:{
+  2104527:   52:  return (a>b)?a:b;
+        -:   53:}
+        -:   54:
+        -:   55:
+        -:   56:/* unless otherwise noted, the following functions return
+        -:   57:
+        -:   58:   0 if there is no solution (i.e., the action eliminates all values
+        -:   59:   from a variable),
+        -:   60:
+        -:   61:   1 if there was a change 
+        -:   62:
+        -:   63:   2 if there was no change 
+        -:   64:*/
+        -:   65:
+        -:   66:
+ 14074791:   67:int sethi(Var *v, long x) {
+14074791*:   68:  assert(v->id >= 0);
+ 14074791:   69:  if (x < v->hi) {
+   216993:   70:    v->hi = x;
+   216993:   71:    if (v->lo <= v->hi)
+        -:   72:      return 1;
+        -:   73:    else
+     4421:   74:      return 0;
+        -:   75:  }
+        -:   76:  return 2;
+        -:   77:}
+        -:   78:
+ 13857798:   79:int setlo(Var *v, long x) {
+13857798*:   80:  assert(v->id >= 0);
+ 13857798:   81:  if (x > v->lo) {
+   213810:   82:    v->lo = x;
+   213810:   83:    if (v->lo <= v->hi)
+        -:   84:      return 1;
+        -:   85:    else
+    14728:   86:      return 0;
+        -:   87:  }
+        -:   88:  return 2;
+        -:   89:}
+        -:   90:
+        -:   91:/* returns 0 if there is no solution, 1 if one of the variables has changed */
+  2633686:   92:int lessthan(Var *v1, Var *v2)
+        -:   93:{
+ 2633686*:   94:  assert(v1->id >= 0);
+ 2633686*:   95:  assert(v2->id >= 0);
+  2633686:   96:  int f = sethi(v1, v2->hi-1);
+  2633686:   97:  if (f < 2)
+        -:   98:    return f;
+  2633573:   99:  return (setlo(v2, v1->lo+1));
+        -:  100:}
+        -:  101:
+  3170851:  102:int sum(Var vs[], unsigned long nv, unsigned long stride, long sum,
+        -:  103:        Var *vsstart, Var *vsend)
+        -:  104:{
+        -:  105:  unsigned long i;
+        -:  106:  long hi = sum;
+        -:  107:  long lo = sum;
+        -:  108:  Var *vp;
+        -:  109:#if 0
+        -:  110:  printf("sum(vsstart+%ld, %lu, %lu, %ld, vsstart, vsstart+%ld)   ",vs-vsstart,nv,stride,sum,vsend-vsstart); fflush(stdout);
+        -:  111:  for (i=0, vp=vs; i<nv; i++, vp+=stride) {
+        -:  112:    assert(vp>=vsstart);
+        -:  113:    assert(vp<vsend);
+        -:  114:    assert(vp->id >= 0);
+        -:  115:    printf("v%ld ",vp->id);
+        -:  116:  }
+        -:  117:  printf("\n");
+        -:  118:#endif
+ 14940780:  119:  for (i=0, vp=vs; i<nv; i++, vp+=stride) {
+11769929*:  120:    assert(vp>=vsstart);
+11769929*:  121:    assert(vp<vsend);
+11769929*:  122:    assert(vp->id >= 0);
+ 11769929:  123:    hi -= vp->lo;
+ 11769929:  124:    lo -= vp->hi;
+        -:  125:  }
+        -:  126:  /* hi is the upper bound of sum-sum(vs), lo the lower bound */
+ 14181376:  127:  for (i=0, vp=vs; i<nv; i++, vp+=stride) {
+ 11441105:  128:    int f = sethi(vp,hi+vp->lo); /* readd vp->lo to get an upper bound of vp */
+11441105*:  129:    assert(vp>=vsstart);
+11441105*:  130:    assert(vp<vsend);
+11441105*:  131:    assert(vp->id >= 0);
+ 11441105:  132:    if (f < 2)
+        -:  133:      return f;
+ 11224225:  134:    f = setlo(vp,lo+vp->hi); /* likewise, readd vp->hi */
+ 11224225:  135:    if (f < 2)
+        -:  136:      return f;
+        -:  137:  }
+        -:  138:  return 2;
+        -:  139:}
+        -:  140:    
+        -:  141:/* reduce the ranges of the variables as much as possible (with the
+        -:  142:   constraints we use);  returns 1 if all variables still have a
+        -:  143:   non-empty range left, 0 if one has an empty range */
+    44240:  144:int solve(unsigned long n, long d, Var vs[])
+    44240:  145:{
+    44240:  146:  unsigned long r = 2*n-1;
+    44240:  147:  unsigned long H = 3*n*n-3*n+1;
+    44240:  148:  long M = d*H;
+    44240:  149:  long o = d*r - (H-1)/2; /* offset in occupation array */
+    44240:  150:  unsigned long occupation[H]; /* if vs[i] has value x, occupation[x-o]==i, 
+        -:  151:                                  if no vs[*] has value x, occupation[x-o]==H*/
+    44240:  152:  unsigned long corners[] = {0, n-1, (n-1)*r+0, (n-1)*r+r-1, (r-1)*r+n-1, (r-1)*r+r-1};
+        -:  153:  unsigned long i;
+        -:  154:  //printf("(re)start\n");
+        -:  155:  /* deal with the alldifferent constraint */
+   884800:  156:  for (i=0; i<H; i++)
+   840560:  157:    occupation[i] = r*r;
+  1539379:  158: restart:
+ 32431334:  159:  for (i=0; i<r*r; i++) {
+ 31322521:  160:    Var *v = &vs[i];
+ 31322521:  161:    if (v->lo == v->hi && occupation[v->lo-o] != i) {
+   430566:  162:      if (occupation[v->lo-o] < r*r)
+        -:  163:        return 0; /* another variable has the same value */
+   413662:  164:      occupation[v->lo-o] = i; /* occupy v->lo */
+   413662:  165:      goto restart;
+        -:  166:    }
+        -:  167:  }
+        -:  168:  /* now propagate the alldifferent results to the bounds */
+ 23558883:  169:  for (i=0; i<r*r; i++) {
+ 23119893:  170:    Var *v = &vs[i];
+ 23119893:  171:    if (v->lo < v->hi) {
+  7913576:  172:      if (occupation[v->lo-o] < r*r) {
+   357278:  173:        v->lo++;
+   357278:  174:        goto restart;
+        -:  175:      }
+  7556298:  176:      if (occupation[v->hi-o] < r*r) {
+   312545:  177:        v->hi--;
+   312545:  178:        goto restart;
+        -:  179:      }
+        -:  180:    }
+        -:  181:  }
+        -:  182:  /* the < constraints; all other corners are smaller than the first
+        -:  183:     one (eliminate rotational symmetry) */
+  2633686:  184:  for (i=1; i<sizeof(corners)/sizeof(corners[0]); i++) {
+  2194779:  185:    int f = lessthan(&vs[corners[0]],&vs[corners[i]]);
+  2194779:  186:    if (f==0) return 0;
+  2194777:  187:    if (f==1) goto restart;
+        -:  188:  }
+        -:  189:  /* eliminate the mirror symmetry between the corners to the right
+        -:  190:     and left of the first corner */
+        -:  191:  {
+   438907:  192:    int f = lessthan(&vs[corners[2]],&vs[corners[1]]); 
+   438907:  193:    if (f==0) return 0;
+   438907:  194:    if (f==1) goto restart;
+        -:  195:  }
+        -:  196:  /* sum constraints: each line and diagonal sums up to M */
+        -:  197:  /* line sum constraints */
+  1172702:  198:  for (i=0; i<r; i++) {
+        -:  199:    int f;
+        -:  200:    /* line */
+  1164515:  201:    f = sum(vs+r*i+max(0,i+1-n), min(i+n,r+n-i-1), 1, M, vs, vs+r*r);
+  1164515:  202:    if (f==0) return 0;
+  1158771:  203:    if (f==1) goto restart;
+        -:  204:    /* column (diagonal down-left in the hexagon) */
+  1066324:  205:    f = sum(vs+i+max(0,i+1-n)*r, min(i+n,r+n-i-1), r, M, vs, vs+r*r);
+  1066324:  206:    if (f==0) return 0;
+  1059936:  207:    if (f==1) goto restart;
+        -:  208:    /* diagonal (down-right) */
+   940012:  209:    f = sum(vs-n+1+i+max(0,n-i-1)*(r+1), min(i+n,r+n-i-1), r+1, M, vs, vs+r*r);
+   940012:  210:    if (f==0) return 0;
+   932997:  211:    if (f==1) goto restart;
+        -:  212:  }
+        -:  213:  return 1;
+        -:  214:}
+        -:  215:
+       26:  216:void printhexagon(unsigned long n, Var vs[])
+        -:  217:{
+        -:  218:  unsigned long i,j;
+       26:  219:  unsigned r=2*n-1;
+      156:  220:  for (i=0; i<r; i++) {
+        -:  221:    unsigned long l=0;
+        -:  222:    unsigned long h=r;
+      130:  223:    if (i+1>n)
+       52:  224:      l = i+1-n;
+      130:  225:    if (i+1<n)
+       52:  226:      h = n+i;
+      286:  227:    for (j=h-l; j<r; j++)
+      156:  228:      printf("    ");
+      624:  229:    for (j=l; j<h; j++) {
+        -:  230:      assert(i<r);
+     494*:  231:      assert(j<r);
+      494:  232:      Var *v=&vs[i*r+j];
+     494*:  233:      assert(v->lo <= v->hi);
+        -:  234:#if 0
+        -:  235:      printf("%6ld  ",v->id);
+        -:  236:#else
+      494:  237:      if (v->lo < v->hi)
+    #####:  238:        printf("%4ld-%-3ld",v->lo,v->hi);
+        -:  239:      else
+      494:  240:        printf("%6ld  ",v->lo);
+        -:  241:#endif
+        -:  242:    }
+      130:  243:    printf("\n");
+        -:  244:  }
+       26:  245:}
+        -:  246:
+        -:  247:/* assign values to vs[index] and all later variables in vs such that
+        -:  248:   the constraints hold */
+     9698:  249:void labeling(unsigned long n, long d, Var vs[], unsigned long index)
+        -:  250:{
+        -:  251:  long i;
+     9698:  252:  unsigned long r = 2*n-1;
+     9698:  253:  Var *vp = vs+index;
+     9698:  254:  if (index >= r*r) {
+       26:  255:    printhexagon(n,vs);
+       26:  256:    solutions++;
+       26:  257:    leafs++;
+       26:  258:    printf("leafs visited: %lu\n\n",leafs);
+       26:  259:    return;
+        -:  260:  }
+     9672:  261:  if (vp->id < 0)
+     1510:  262:    return labeling(n,d,vs,index+1);
+    52402:  263:  for (i = vp->lo; i <= vp->hi; i++) {
+    44240:  264:    Var newvs[r*r];
+    44240:  265:    Var* newvp=newvs+index;
+    44240:  266:    memmove(newvs,vs,r*r*sizeof(Var));
+    44240:  267:    newvp->lo = i;
+    44240:  268:    newvp->hi = i;
+        -:  269:#if 0
+        -:  270:    for (Var *v = newvs; v<=newvp; v++) {
+        -:  271:      if (v->id >= 0) {
+        -:  272:        assert(v->lo == v->hi);
+        -:  273:        printf(" %ld",v->lo); fflush(stdout);
+        -:  274:      }
+        -:  275:    }
+        -:  276:    printf("\n");
+        -:  277:#endif
+    44240:  278:    if (solve(n,d,newvs))
+     8187:  279:      labeling(n,d,newvs,index+1);
+        -:  280:    else
+    36053:  281:      leafs++;
+        -:  282:  }
+        -:  283:}
+        -:  284:
+        1:  285:Var *makehexagon(unsigned long n, long d)
+        -:  286:{
+        -:  287:  unsigned long i,j;
+        1:  288:  unsigned long r = 2*n-1;
+        1:  289:  unsigned long H = 3*n*n-3*n+1;
+        -:  290:  
+        1:  291:  Var *vs = calloc(r*r,sizeof(Var));
+        -:  292:  unsigned long id = 0;
+       26:  293:  for (i=0; i<r*r; i++) {
+       25:  294:    Var *v = &vs[i];
+       25:  295:    v->id = -1;
+       25:  296:    v->lo = 1;
+       25:  297:    v->hi = 0;
+        -:  298:  }
+        6:  299:  for (i=0; i<r; i++) {
+        -:  300:    unsigned long l=0;
+        -:  301:    unsigned long h=r;
+        5:  302:    if (i+1>n)
+        2:  303:      l = i+1-n;
+        5:  304:    if (i+1<n)
+        2:  305:      h = n+i;
+       24:  306:    for (j=l; j<h; j++) {
+        -:  307:      assert(i<r);
+      19*:  308:      assert(j<r);
+       19:  309:      Var *v=&vs[i*r+j];
+      19*:  310:      assert(v->lo>v->hi);
+       19:  311:      v->id = id++;
+       19:  312:      v->lo = d*r - (H-1)/2;
+       19:  313:      v->hi = d*r + (H-1)/2;
+        -:  314:    }
+        -:  315:  }
+        1:  316:  return vs;
+        -:  317:}
+        -:  318:
+        1:  319:int main(int argc, char *argv[])
+        -:  320:{
+        -:  321:  unsigned long i;
+        -:  322:  unsigned long j=0;
+        -:  323:  unsigned long n;
+        -:  324:  long d;
+        1:  325:  if (argc < 3) {
+    #####:  326:    fprintf(stderr, "Usage: %s <order> <deviation> <value> ... <value>\n", argv[0]);
+    #####:  327:    exit(1);
+        -:  328:  }
+        1:  329:  n = strtoul(argv[1],NULL,10);
+        1:  330:  if (n<1) {
+    #####:  331:    fprintf(stderr, "order must be >=1\n");
+    #####:  332:    exit(1);
+        -:  333:  }
+        1:  334:  d = strtol(argv[2],NULL,10);
+        1:  335:  Var *vs = makehexagon(n,d);
+       1*:  336:  for (i=3; i<argc; i++) {
+    #####:  337:    while (vs[j].id < 0)
+    #####:  338:      j++;
+    #####:  339:    vs[j].lo = vs[j].hi = strtol(argv[i],NULL,10);
+    #####:  340:    j++;
+        -:  341:  }
+        1:  342:  labeling(n,d,vs,0);
+        1:  343:  printf("%lu solution(s), %lu leafs visited\n",solutions, leafs);
+        -:  344:  //(void)solve(n, d, vs);
+        -:  345:  //printhexagon(n, vs);
+        -:  346:  return 0;
+        -:  347:}

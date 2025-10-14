@@ -1,0 +1,5 @@
+File 'magichex.c'
+Lines executed:94.27% of 157
+Creating 'magichex.c.gcov'
+
+Lines executed:94.27% of 157
