@@ -1,0 +1,405 @@
+
+Exercises 2 - Efficient Programs
+Student: ep12433741
+
+================================================================================
+Q1: Modify list1() to execute as many instructions:u as possible without 
+    exceeding 600,000,000 cycles:u
+================================================================================
+
+BASELINE (original list1):
+- cycles:u: 502,996,816
+- instructions:u: 401,594,091
+- IPC: 0.80
+
+Original code:
+```c
+long list1(list_t *a)
+{
+  long r=0;
+  while (a != NULL) {
+    r += a->payload.val1;
+    a = a->next;
+  }
+  return r;
+}
+```
+
+PROBLEM ANALYSIS:
+-----------------
+The original list1() function exhibits classic memory-bound behavior with an IPC 
+of only 0.80. This low IPC indicates the CPU spends most of its time waiting for 
+memory accesses rather than executing instructions. The bottleneck is "pointer 
+chasing" - each iteration must wait for the current node to be loaded from memory 
+before it can determine the address of the next node.
+
+The payload structure is 40 bytes, and with poor spatial locality in linked lists,
+most accesses likely result in cache misses. This creates significant memory 
+latency (hundreds of CPU cycles per cache miss).
+
+OPTIMIZATION STRATEGY:
+----------------------
+The key insight is that during memory stalls, the CPU's execution units are idle.
+We can add computational work that executes while waiting for memory, effectively
+"hiding" the computation cost within the existing memory latency.
+
+ATTEMPTED APPROACHES:
+---------------------
+
+Approach 1: Add unconditional operations on multiple payload fields
+Code:
+```c
+long list1(list_t *a)
+{
+  long r=0;
+  while (a != NULL) {
+    r += a->payload.val1;
+    r += a->payload.val4;
+    r += a->payload.val5;
+    r += (long)a->payload.val2;
+    r += (long)a->payload.val3;
+    r += a->payload.val6 + a->payload.val7 + a->payload.val8 + a->payload.val9;
+    a = a->next;
+  }
+  return r;
+}
+```
+Result: 904,070,076 cycles - FAILED (exceeds 600M limit by 50%)
+Analysis: Too many operations saturated the available execution units. The memory
+latency could no longer hide all the computational work, causing the cycle count
+to increase beyond our budget.
+
+Approach 2: Reduce to fewer fields (val1, val4, val5)
+Result: 704,724,530 cycles - FAILED (exceeds 600M limit by 17%)
+Analysis: Still too much computation for the available memory latency window.
+
+Approach 3: Further reduction (val1, val4 only)
+Result: 603,061,939 cycles - FAILED (exceeds 600M limit by 0.5%)
+Analysis: Even one additional unconditional integer addition per
+iteration exceeds the budget. This suggests we need approximately 2 integer loads
+per iteration to stay within budget.
+
+Approach 4: Try smaller data type (val1, val6 char)
+Result: 603,070,590 cycles - FAILED (exceeds 600M limit by 0.5%)
+Analysis: Accessing a char field still requires loading the cache line and
+extracting the byte. The savings were negligible.
+
+Approach 5: CONDITIONAL execution (SUCCESSFUL)
+Code:
+```c
+long list1(list_t *a)
+{
+  long r=0;
+  while (a != NULL) {
+    r += a->payload.val1;
+    if (a->payload.val1 & 1)
+      r += a->payload.val4;
+    a = a->next;
+  }
+  return r;
+}
+```
+Result: 542,189,669 cycles - SUCCESS (under 600M limit)
+        851,794,094 instructions
+
+FINAL RESULT:
+-------------
+cycles:u:       542,189,669 (9.6% under budget)
+instructions:u: 851,794,094 (112% increase from baseline)
+IPC:            1.57 (96% improvement from baseline)
+
+WHY THE CONDITIONAL APPROACH WORKS:
+------------------------------------
+The conditional adds significant instruction overhead:
+1. Load val1 (already done for the addition)
+2. Bitwise AND operation to test if odd
+3. Conditional branch instruction
+4. Load val4 (executed ~50% of time)
+5. Addition (executed ~50% of time)
+
+The key advantage is that the conditional addition only executes about half 
+the time, reducing the average computational load per iteration while still
+adding many more instructions than the baseline.
+
+KEY INSIGHTS:
+-------------
+1. Memory-bound code has "free" CPU cycles during memory stalls
+2. Adding computation is only free up to a point - beyond that, computation
+   becomes the bottleneck
+3. The transition from memory-bound to CPU-bound is sharp (603M vs 542M cycles)
+4. Conditional execution can balance instruction count vs cycle count
+
+================================================================================
+Q2: Modify array1() to perform the same computations as new list1()
+    How many cycles:u does your new array1() take?
+================================================================================
+
+Modified array1() code:
+```c
+long array1(payload_t a[], size_t n)
+{
+  size_t i=0;
+  long r=0;
+  while (i<n) {
+    r += a[i].val1;
+    if (a[i].val1 & 1)
+      r += a[i].val4;
+    i++;
+  }
+  return r;
+}
+```
+
+BASELINE array1 (original):
+- cycles:u:       150,168,018
+- instructions:u: 402,092,046
+- IPC:            2.68
+
+MODIFIED array1 (with conditional):
+- cycles:u:       246,365,498
+- instructions:u: 852,292,057
+- IPC:            3.46
+
+COMPARISON WITH list1:
+- list1 cycles:   542,287,539
+- array1 cycles:  246,365,498
+- Speedup factor: 2.20x (array is 2.2 times faster than list)
+
+ANALYSIS:
+---------
+Both array1 and list1 now execute virtually identical instructions (~852M vs ~851M),
+performing the same computational work. However, array1 completes in less than half
+the cycles (246M vs 542M), demonstrating the dramatic impact of memory access patterns.
+
+The modified array1 actually runs SLOWER than the baseline (246M vs 150M cycles)
+because we added more computation. The IPC increased from 2.68 to 3.46, showing
+improved CPU utilization, but the extra conditional logic and val4 accesses added
+~96M cycles. This is now more CPU-bound than the original.
+
+In contrast, list1 with the same logic remains heavily memory-bound (IPC 1.57).
+The pointer chasing in linked lists creates serialized memory dependencies - each
+load must complete before the next can begin. This memory latency dominates
+execution time.
+
+Key differences between array and list performance:
+
+1. SPATIAL LOCALITY:
+   - Array: Elements are contiguous (a[0], a[1], a[2]... are adjacent in memory)
+   - List: Nodes are scattered randomly in heap memory
+
+2. HARDWARE PREFETCHING:
+   - Array: CPU detects sequential pattern and prefetches upcoming elements
+   - List: Unpredictable addresses prevent effective prefetching
+
+3. CACHE EFFICIENCY:
+   - Array: Loading a[i] brings a[i+1], a[i+2]... into same cache line (64 bytes)
+   - List: Each node access likely loads a new cache line, poor reuse
+
+4. MEMORY PARALLELISM:
+   - Array: Independent accesses can overlap (out-of-order execution)
+   - List: Dependent pointer chain forces serialization
+
+ANSWER TO Q2: 246,365,498 cycles:u
+
+================================================================================
+Q3: Modify array2() to consume as many cycles:u as possible without 
+    exceeding 810,000,000 instructions:u
+================================================================================
+
+BASELINE array2 (original):
+- cycles:u:       148,902,012
+- instructions:u: 401,992,069
+- IPC:            2.70
+
+GOAL: Maximize cycles while keeping instructions ≤ 810M
+
+ATTEMPTED APPROACHES:
+---------------------
+
+Approach 1: Strided access with modulo (unconditional)
+Code:
+```c
+r += a[i].val1;
+r += a[(i * 37) % n].val1;  // Prime stride for cache destruction
+```
+Result: 1,000,751,077 cycles, 1,002,392,113 instructions
+Status: FAILED - 24% over instruction budget
+Analysis: Multiplication and modulo operations added too many instructions.
+The strided access pattern did achieve goal of poor cache behavior (IPC = 1.00),
+but at the cost of excessive instruction count.
+
+Approach 2: Conditional strided access (50% frequency)
+Code:
+```c
+r += a[i].val1;
+if ((i & 1) == 0)
+  r += a[(i * 37) % n].val1;
+```
+Result: 500,828,303 cycles, 1,351,792,087 instructions
+Status: FAILED - 67% over instruction budget!
+Analysis: Surprisingly, making the operation conditional increased instructions
+even more. The branch mispredictions and the conditional logic itself added
+significant instruction overhead. The high IPC (2.70) shows the CPU was efficiently
+executing all these extra instructions.
+
+Approach 3: Simpler stride with reduced frequency
+Code:
+```c
+r += a[i].val1;
+if (i + 64 < n)
+  r += a[i + 64].val1;  // Access 64 elements ahead
+```
+Result: 231,338,911 cycles, 1,089,192,073 instructions
+Status: FAILED - 34% over instruction budget
+Analysis: Simplifying to addition (no multiply/modulo) helped, but still too many
+instructions. The stride of 64 elements (2560 bytes) wasn't large enough to cause
+significant cache misses. Very high IPC (4.71) indicates excellent cache behavior
+- the opposite of what we wanted. The condition executed 93.6% of the time.
+
+Approach 4: Even less frequent, larger stride
+Code:
+```c
+r += a[i].val1;
+if ((i & 3) == 0 && i + 256 < n)
+  r += a[i + 256].val1;  // Every 4th iteration, stride of 256
+```
+Result: 202,462,313 cycles, 1,013,992,072 instructions
+Status: FAILED - 25% over instruction budget
+Analysis: Reducing frequency to 25% and increasing stride to 256 elements (10KB)
+helped but wasn't enough. The conditional branches themselves add significant
+instruction overhead. Very high IPC (5.01) shows we're not achieving the cache
+misses we wanted.
+
+KEY INSIGHT FROM FAILURES:
+Conditional branches and complex address calculations (multiply, modulo) add more
+instructions than expected.
+
+Better strategy: Keep operations simple and unconditional.
+
+Approach 5: Simple unconditional field accesses (SUCCESSFUL)
+Code:
+```c
+long array2(payload_t a[], size_t n)
+{
+  size_t i=0;
+  long r=0;
+  while (i<n) {
+    r += a[i].val1;
+    r += a[i].val4;
+    r += a[i].val5;
+    i++;
+  }
+  return r;
+}
+```
+
+FINAL RESULT:
+-------------
+cycles:u:       298,085,298 (100% increase from baseline - SUCCESS!)
+instructions:u: 801,892,079 (1% under budget)
+IPC:            2.69
+
+WHY THIS WORKS:
+---------------
+1. SIMPLE OPERATIONS: Just loading and adding fields - no complex arithmetic
+2. UNCONDITIONAL: No branches means no branch prediction overhead
+3. SAME CACHE LINE: val1, val4, val5 are all in the same payload structure,
+   so loading them uses the already-cached data efficiently
+4. CONTROLLED GROWTH: Each iteration does exactly 3 loads + 3 adds instead of 1+1,
+   doubling the work (and roughly doubling cycles) while staying under instruction
+   budget
+
+The key realization: We don't need to destroy cache behavior to add cycles.
+Simply doing MORE computational work (accessing more fields) adds cycles
+proportionally while keeping instruction growth linear and controlled.
+
+Arrays remain CPU-bound and cache-efficient. The extra memory accesses to val4
+and val5 add cycles because they're extra work, even though the data is already
+in cache from loading the payload structure.
+
+ANSWER TO Q3: 298,085,298 cycles:u
+
+================================================================================
+Q4: Modify list2() to perform the same computations as new array2()
+    How many cycles:u does your new list2() take?
+================================================================================
+
+Modified list2() code:
+```c
+long list2(list_t *a)
+{
+  long r=0;
+  while (a != NULL) {
+    r += a->payload.val1;
+    r += a->payload.val4;
+    r += a->payload.val5;
+    a = a->next;
+  }
+  return r;
+}
+```
+
+BASELINE list2 (original):
+- cycles:u:       503,612,735
+- instructions:u: 401,594,123
+- IPC:            0.80
+
+MODIFIED list2 (with val4, val5):
+- cycles:u:       604,023,163
+- instructions:u: 801,594,198
+- IPC:            1.33
+
+COMPARISON WITH array2:
+- array2 cycles:  298,223,557
+- list2 cycles:   604,023,163
+- Slowdown factor: 2.03x (list is 2 times slower than array)
+
+DETAILED ANALYSIS:
+------------------
+
+Both list2 and array2 execute virtually identical instructions (~801-802M),
+performing the same computational work (accessing val1, val4, and val5 from
+each payload structure). However, list2 takes MORE THAN DOUBLE the cycles
+(604M vs 298M) to complete the same work.
+
+PERFORMANCE BREAKDOWN:
+
+Array2 (cache-friendly):
+- Instructions: 801,892,212
+- Cycles: 298,223,557
+- IPC: 2.69 (CPU-bound, efficient execution)
+- Memory pattern: Sequential, predictable
+- Result: ~0.37 cycles per instruction
+
+List2 (cache-hostile):
+- Instructions: 801,594,198
+- Cycles: 604,023,163
+- IPC: 1.33 (memory-bound, stalled execution)
+- Memory pattern: Random pointer chasing
+- Result: ~0.75 cycles per instruction
+
+
+COMPARISON WITH Q2 RESULTS:
+
+Q2 (array1 vs list1 with conditional logic):
+- array1: 246M cycles, 852M instructions, IPC 3.46
+- list1:  542M cycles, 851M instructions, IPC 1.57
+- Ratio: 2.20x slower
+
+Q4 (array2 vs list2 with three fields):
+- array2: 298M cycles, 801M instructions, IPC 2.69
+- list2:  604M cycles, 801M instructions, IPC 1.33
+- Ratio: 2.03x slower
+
+The consistent 2x slowdown factor demonstrates that linked list pointer chasing
+roughly doubles execution time compared to array sequential access, regardless
+of the specific computational work being done.
+
+KEY INSIGHT:
+The data structure choice (array vs linked list) has approximately 2x performance
+impact, which is MORE significant than many algorithmic optimizations. Memory
+access patterns matter as much as algorithmic complexity for real-world performance.
+
+ANSWER TO Q4: 604,023,163 cycles:u
+
+================================================================================
