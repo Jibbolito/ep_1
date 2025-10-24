@@ -1,9 +1,68 @@
+Solutions from Viktor Hoffmann
+
+
+Command executed:
+    /usr/bin/time -v /usr/ftp/pub/anton/lvas/efficient/25/q1[a-e]
+
+Summary of results:
+
+Program | Real time (s) | User time (s) | System time (s) | Max RSS (kB) | CPU (%) 
+-----------------------------------------------------------------------------------
+q1a     | 0.11           | 0.04          | 0.07             | 985964       | 99
+q1b     | 0.41           | 0.00          | 0.00             | 9180         | 2
+q1c     | 0.16           | 0.46          | 0.01             | 9104         | 296
+q1d     | 0.37           | 0.00          | 0.36             | 1544         | 99
+q1e     | 0.37           | 0.36          | 0.00             | 9212         | 99
+
 ### Q1: Which of these programs are fast enough?  Why?
+
+Based on the execution times measured with /usr/bin/time -v, programs q1a and q1c are fast enough because their real execution time (0.11 s and 0.16 s, respectively) is well below the 300 ms threshold mentioned in the lecture for acceptable response times of command-line programs.
+Programs q1b, q1d, and q1e exceed the 0.3 s limit (0.37–0.41 s) and are therefore too slow for interactive use.
+- q1b shows very low CPU utilization (2 %), suggesting inefficient waiting or blocking behavior.
+- q1d and q1e reach nearly full CPU utilization, meaning they are CPU-bound and could benefit from algorithmic optimization or reduced computation.
+In summary, q1a and q1c meet the responsiveness criterion, while q1b–e do not.
+
+
 ### Q2: Which of these programs are CPU-bound?
+
+A program is considered CPU-bound if its CPU utilization is close to 100 %, meaning most of its execution time is spent performing computations rather than waiting for I/O or external events.
+From the measurement results:
+- q1a: 99 % CPU — CPU-bound (e.g. User Time + System Time = 0.04 + 0.07 = 0.11 = 0.11 (Real Time)
+- q1c: 296 % CPU — CPU-bound (likely uses multiple threads or cores)
+- q1d: 99 % CPU — CPU-bound
+- q1e: 99 % CPU — CPU-bound
+- q1b: 2 % CPU — not CPU-bound (likely I/O-bound or idle) (0.00 + 0.00 = 0.00 != 0.41 (real time))
+Therefore, q1a, q1c, q1d, and q1e are CPU-bound, while q1b is not.
+
 ### Q3: Which of the CPU-bound programs spend most of their time in user mode?
+
+Looking at the raw numbers q1c spends most of their time in user mode, but this is likely using three core/threads. 
+=> 0.46/3 = 0.15 which is smaller then the time q1e spends (0.36) => q1e spends most of the time in user mode.  
+
+
 ### Q4: Which of the CPU-bound programs spend most of their time in system mode?
+
+q1d spends by far most time in system mode: 0.36s, but almost no user time. => likely due to intensive system call or I/O handling.
+
+
 ### Q5: Which program consumes the most memory?
+
+q1a spends by far the most memory (985964kb). This high memory usage suggests that q1a either allocates large data structures in memory or performs operations on large arrays.
+
+
 ### Q6: Which program consumes the most CPU time?
+
+CPU time is the sum of user and system time.
+From the measurements:
+Program	  User + System (s)
+q1a	      0.11
+q1b	      0.00
+q1c	      0.47
+q1d	      0.36
+q1e	      0.36
+The program q1c consumes the most CPU time (≈ 0.47 s).
+Its high CPU utilization (296 %) indicates that it uses multiple cores, which explains the larger total CPU time even though its real time is short.
+
 ### Q7: Which function consumes the most time according to the profile?
 ### Q8: Which function is called most often?
 ### Q9: Which function calls `sethi` most often
