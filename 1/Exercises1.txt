@@ -63,8 +63,87 @@ q1e	      0.36
 The program q1c consumes the most CPU time (≈ 0.47 s).
 Its high CPU utilization (296 %) indicates that it uses multiple cores, which explains the larger total CPU time even though its real time is short.
 
+____________________________________________________________________________________
+
+# Part 2
+
+For Q7-10 the following commands were executed:
+gcc -O -pg /usr/ftp/pub/anton/lvas/effizienz-aufgabe23/magichex.c -o magichex
+./magichex 3 0 >/dev/null
+gprof ./magichex gmon.out > gprof.txt
+
+For Q11, line coverage information was collected using gcov.
+The following commands were executed
+cp /usr/ftp/pub/anton/lvas/effizienz-aufgabe23/magichex.c .
+gcc -O --coverage magichex.c -o magichex
+./magichex 3 0 >/dev/null
+gcov magichex.c > gcov.txt
+
+Results (Flat profile):
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  ms/call  ms/call  name
+ 44.46      0.04     0.04  3170851     0.00     0.00  sum
+ 44.46      0.08     0.04    44240     0.00     0.00  solve
+ 11.12      0.09     0.01                             _init
+  0.00      0.09     0.00 14074791     0.00     0.00  sethi
+  0.00      0.09     0.00 13857798     0.00     0.00  setlo
+  0.00      0.09     0.00  2633686     0.00     0.00  lessthan
+  0.00      0.09     0.00       26     0.00     0.00  printhexagon
+  0.00      0.09     0.00        1     0.00    80.03  labeling
+  0.00      0.09     0.00        1     0.00     0.00  makehexagon
+
+
+
 ### Q7: Which function consumes the most time according to the profile?
+
+The functions `sum()` and `solve()` consume the most time (≈44% each).
+
+
 ### Q8: Which function is called most often?
+
+`sethi()` is called ≈14 million times, followed by `setlo()` with ≈13.8 million calls.
+
+
 ### Q9: Which function calls `sethi` most often
-### Q10: Which function is called by `lessthan` most often?
+
+from my output:
+                0.00    0.00 2633686/14074791     lessthan [8]
+                0.00    0.00 11441105/14074791     sum [4]
+[6]      0.0    0.00    0.00 14074791         sethi [6]
+-----------------------------------------------
+=> lessthan calls sethi 2,633,686 times
+=> sum calls sethi 11,441,105 times
+Total calls: 14,074,791
+
+So, the function that calls sethi() most often is sum().
+
+
+### Q10: Which function is called by `lessthan` most often?+
+
+from my ouput:
+                0.00    0.00 2633686/2633686     solve [1]
+[8]      0.0    0.00    0.00 2633686         lessthan [8]
+                0.00    0.00 2633686/14074791     sethi [6]
+                0.00    0.00 2633573/13857798     setlo [7]
+-----------------------------------------------
+=> lessthan() is called by solve() exactly 2,633,686 times.
+=> lessthan() itself calls:
+- sethi() → 2,633,686 times
+- setlo() → 2,633,573 times
+
+The function that lessthan() calls most often is sethi(), slightly more than it calls setlo().
+The difference is small (2,633,686 vs. 2,633,573), but according to the profiling data, sethi() is called more.
+
+
 ### Q11: According to the `gcov` output, which line in `solve` is executed most often?
+
+From output:
+File 'magichex.c'
+Lines executed:94.27% of 157
+Creating 'magichex.c.gcov'
+
+More than 94% of lines were executed overall.  
+The most frequently executed line in `solve()` is the loop body where `sum = sethi(...)` is called.
+
+
